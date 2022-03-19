@@ -7,8 +7,26 @@ export const theme = {
     green: "#43432E",
     white: "white",
   },
-  fontFamily: {
-    lekyCalgria: "LekyCalgria",
-    poppins: "Poppins",
+  fontStyles: {
+    title: {
+      fontFamily: "LekyCalgria",
+      fontSize: 50,
+    },
+    body: {
+      fontFamily: "Poppins",
+      fontSize: 16,
+    },
+    note: {
+      fontFamily: "Poppins",
+      fontSize: 12,
+    },
+    header: {
+      fontFamily: "Poppins",
+      fontSize: 18,
+      fontWeight: "bold",
+    },
+  },
+  margins: {
+    left: 6,
   },
 }

@@ -5,11 +5,12 @@ import {
   getStampDimensions,
   IDimensions,
   IStampProps,
+  AnimatedNote,
 } from "../components"
 import { theme } from "../theme/theme"
 import { useWindowSize } from "../utils/hooks"
 import clickMe from "../images/click-me.png"
-import { Title } from "../components/title"
+import { Text } from "../components/text"
 
 interface IPosition {
   x: number
@@ -45,9 +46,12 @@ export const Landing: React.FC = () => {
         backgroundColor: theme.colors.beige,
         alignItems: "center",
         position: "relative",
+        paddingLeft: theme.margins.left,
       }}
     >
-      <Title text="emily dong" />
+      <Text sx={{ color: theme.colors.orange }} type="title">
+        emily dong
+      </Text>
       <Box
         sx={{
           position: "absolute",
@@ -63,16 +67,28 @@ export const Landing: React.FC = () => {
         <Stamp position={mousePosition} dimensions={dimensions} />
       )}
       {positionAndDimensionsSet && (
-        <Image
-          src={clickMe}
-          sx={{
-            height: 80,
-            position: "absolute",
-            left: mousePosition.x - 40,
-            top: mousePosition.y - 40,
-            animation: "rotation 8s infinite linear",
-          }}
-        />
+        <Box sx={{ bg: "red" }}>
+          {stamps.length === 1 && (
+            <AnimatedNote
+              sx={{
+                position: "absolute",
+                left: mousePosition.x + 45,
+                top: mousePosition.y - 50,
+              }}
+            />
+          )}
+          <Image
+            src={clickMe}
+            sx={{
+              height: 80,
+              animation: "rotation 8s infinite linear",
+              position: "absolute",
+              left: mousePosition.x - 40,
+              top: mousePosition.y - 40,
+              // bg: "blue",
+            }}
+          />
+        </Box>
       )}
       {stamps.map((props, idx) => (
         <Stamp key={idx} {...props} />
