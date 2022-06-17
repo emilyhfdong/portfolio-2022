@@ -1,15 +1,14 @@
 import React from "react"
-import { ProgressBar } from "./components"
-import { Landing } from "./pages/landing"
-import { Projects } from "./pages/projects"
-import { theme } from "./theme/theme"
+import { Box, Flex, Text } from "rebass"
+import { ProjectCard } from "./components/ProjectCard"
+import { ALL_PROJECTS } from "./data"
 
-export const App: React.FC = () => {
-  return (
-    <>
-      {/* <ProgressBar color={theme.colors.white} totalSteps={4} currentStep={1} /> */}
-      <Landing />
-      <Projects />
-    </>
-  )
-}
+export const App: React.FC = () => (
+  <Flex sx={{ height: "100vh", width: "100vw", padding: "2rem" }}>
+    <Flex>
+      {ALL_PROJECTS.map((project) => (
+        <ProjectCard project={project} />
+      ))}
+    </Flex>
+  </Flex>
+)
