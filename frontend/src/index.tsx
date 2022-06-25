@@ -5,12 +5,17 @@ import { App } from "./App"
 import reportWebVitals from "./reportWebVitals"
 import { ThemeProvider } from "emotion-theming"
 import { theme } from "./theme"
+import { InProgressScreen } from "./components"
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
+    {process.env.REACT_APP_ENV !== "dev" ? (
+      <InProgressScreen />
+    ) : (
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    )}
   </React.StrictMode>,
   document.getElementById("root")
 )
