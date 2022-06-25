@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { Flex } from "rebass"
 import { useDimensions } from "../hooks"
 import { Project } from "../types"
@@ -11,26 +11,25 @@ type ProjectCardProps = {
 export const PROJECT_CARD_EXPAND_DURATION_S = 0.4
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
-  const [isOpen, setIsOpen] = useState(false)
   const ref = useRef<HTMLElement>(null)
+
+  const [isOpen, setIsOpen] = useState(false)
 
   const { x, y, width, height } = useDimensions(ref)
 
-  console.log("hii", `circle(200vh at ${x + width / 2}px ${y + height / 2}px)`)
   return (
     <>
       <Flex
         ref={ref}
         onClick={() => setIsOpen(!isOpen)}
         sx={{
-          height: 150,
-          width: 150,
+          height: width,
+          width: "100%",
           backgroundColor: project.backgroundColor,
           justifyContent: "center",
           alignItems: "center",
           fontSize: 35,
           borderRadius: "1rem",
-          marginLeft: "1rem",
           cursor: "pointer",
           ":hover": {
             transform: "scale(1.05)",

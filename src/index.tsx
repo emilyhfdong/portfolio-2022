@@ -3,8 +3,8 @@ import ReactDOM from "react-dom"
 import "./index.css"
 import { App } from "./App"
 import reportWebVitals from "./reportWebVitals"
-import { ThemeProvider } from "@emotion/react"
-import theme from "@rebass/preset"
+import { ThemeProvider } from "emotion-theming"
+import { theme } from "./theme"
 
 ReactDOM.render(
   <React.StrictMode>

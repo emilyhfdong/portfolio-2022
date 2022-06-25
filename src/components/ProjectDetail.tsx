@@ -1,5 +1,5 @@
 import React from "react"
-import { Flex, Text } from "rebass"
+import { Box, Flex, Text } from "rebass"
 import { Project } from "../types"
 
 type ProjectDetailProps = {
@@ -12,14 +12,19 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({
   return (
     <Flex
       sx={{
-        padding: "2rem",
+        padding: [10, "2rem"],
         flexDirection: "column",
-        alignItems: "center",
+        alignItems: ["start", "center"],
         width: "100%",
       }}
     >
-      <Text sx={{ fontSize: 70 }}>
-        {emoji} {name}
+      <Text sx={{ fontSize: [30, 60], fontWeight: "600" }}>
+        {emoji}
+        <Box
+          as="br"
+          sx={{ display: ["flex", "none"], marginBottom: "2rem" }}
+        />{" "}
+        {name}
       </Text>
     </Flex>
   )
