@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useRef, useState } from "react"
 import { Flex } from "rebass"
 import { useDimensions } from "../hooks"
 import { Project } from "../types"
