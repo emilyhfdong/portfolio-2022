@@ -2,7 +2,7 @@ import { functions } from "./src/functions"
 import type { AWS } from "@serverless/typescript"
 
 const serverlessConfiguration: AWS = {
-  service: "backend",
+  service: "portfolio",
   frameworkVersion: "3",
   plugins: ["serverless-esbuild"],
   provider: {
@@ -15,6 +15,8 @@ const serverlessConfiguration: AWS = {
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
       NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000",
+      NOTION_TOKEN: "${ssm:/${self:service.name}/notion-token}",
+      NOTION_DATABASE_ID: "${ssm:/${self:service.name}/database-id}",
     },
   },
   functions,
