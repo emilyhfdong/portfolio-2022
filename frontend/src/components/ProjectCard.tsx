@@ -34,10 +34,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           ":hover": {
             transform: "scale(1.05)",
           },
-          ":active": {
-            filter: "none",
-          },
-          transition: "all 0.3s",
+          transition: "transform 0.3s",
         }}
       >
         {project.emoji}

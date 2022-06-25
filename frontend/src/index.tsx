@@ -6,15 +6,19 @@ import reportWebVitals from "./reportWebVitals"
 import { ThemeProvider } from "emotion-theming"
 import { theme } from "./theme"
 import { InProgressScreen } from "./components"
+import { QueryClientProvider } from "react-query"
+import { queryClient } from "./query"
 
 ReactDOM.render(
   <React.StrictMode>
     {process.env.REACT_APP_ENV !== "dev" ? (
       <InProgressScreen />
     ) : (
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      </QueryClientProvider>
     )}
   </React.StrictMode>,
   document.getElementById("root")

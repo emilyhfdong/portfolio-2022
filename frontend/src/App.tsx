@@ -1,9 +1,13 @@
 import React from "react"
 import { Box, Flex, Text } from "rebass"
-import { ALL_PROJECTS } from "./data"
 import { ContactDetail, ProjectCard, BreakpointHelper } from "./components"
+import { useProjects } from "./query"
 
 export const App: React.FC = () => {
+  const { data, isLoading } = useProjects()
+  if (isLoading) {
+    return <div></div>
+  }
   return (
     <Flex
       sx={{
@@ -64,7 +68,7 @@ export const App: React.FC = () => {
             rowGap: 10,
           }}
         >
-          {ALL_PROJECTS.map((project, idx) => (
+          {data?.map((project, idx) => (
             <ProjectCard key={idx} project={project} />
           ))}
         </Box>
