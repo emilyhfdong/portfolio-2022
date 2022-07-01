@@ -27,6 +27,56 @@ const NOTION_PROJECT = {
       type: "checkbox",
       checkbox: false,
     },
+    motivation: {
+      id: "P%3E%40S",
+      type: "rich_text",
+      rich_text: [
+        {
+          type: "text",
+          text: {
+            content:
+              "I love to knit and spend a lot of my time finding yarns for my next project. I was getting tired of opening tabs for all of my favourite yarn stores in Toronto and searching for the yarn I want on each website. I wanted one place to search in all stores.",
+            link: null,
+          },
+          annotations: {
+            bold: false,
+            italic: false,
+            strikethrough: false,
+            underline: false,
+            code: false,
+            color: "default",
+          },
+          plain_text:
+            "I love to knit and spend a lot of my time finding yarns for my next project. I was getting tired of opening tabs for all of my favourite yarn stores in Toronto and searching for the yarn I want on each website. I wanted one place to search in all stores.",
+          href: null,
+        },
+      ],
+    },
+    summary: {
+      id: "UI%60%5B",
+      type: "rich_text",
+      rich_text: [
+        {
+          type: "text",
+          text: {
+            content:
+              "Creates a notion table with all available yarns in popular yarn stores in Toronto",
+            link: null,
+          },
+          annotations: {
+            bold: false,
+            italic: false,
+            strikethrough: false,
+            underline: false,
+            code: false,
+            color: "default",
+          },
+          plain_text:
+            "Creates a notion table with all available yarns in popular yarn stores in Toronto",
+          href: null,
+        },
+      ],
+    },
     "github link": {
       id: "%3FKDC",
       type: "url",

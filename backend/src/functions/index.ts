@@ -9,4 +9,12 @@ export const functions: AWS["functions"] = {
       },
     ],
   },
+  getNotionProjects: {
+    handler: `src/functions/getNotionProjects/handler.handler`,
+    events: [
+      {
+        httpApi: { method: "get", path: "/notion" },
+      },
+    ],
+  },
 }

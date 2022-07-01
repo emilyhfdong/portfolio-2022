@@ -5,25 +5,23 @@ import { middyfy } from "@libs/lambda"
 import { notion } from "@libs/notion"
 import { NotionProject } from "@libs/notion/types"
 
-export type Project = {
-  id: string
-  emoji: string
-  backgroundColor: string
-  name: string
-}
-
 const getProjects: ValidatedEventAPIGatewayProxyEvent<{}> = async () => {
-  const blah = await notion.databases.query({
+  const database = await notion.databases.query({
     database_id: environment.databaseId,
   })
 
-  const notionProjects = blah.results as NotionProject[]
+  const notionProjects = database.results as NotionProject[]
 
-  const projects: Project[] = notionProjects
+  const projects = notionProjects
     .filter(
       (p) =>
         p.properties["background colour"].rich_text.length &&
         !p.properties.hide.checkbox
+    )
+    .sort(
+      (a, b) =>
+        new Date(b.properties.date.date.start).getTime() -
+        new Date(a.properties.date.date.start).getTime()
     )
     .map((p) => ({
       id: p.id,
@@ -36,6 +34,8 @@ const getProjects: ValidatedEventAPIGatewayProxyEvent<{}> = async () => {
       dateCreated: p.properties.date.date.start,
       screenshots: p.properties.screenshot.files.map((file) => file.file.url),
       github: p.properties["github link"].url,
+      summary: p.properties.summary.rich_text[0]?.plain_text,
+      motivation: p.properties.motivation.rich_text[0]?.plain_text,
     }))
 
   return formatJSONResponse({
