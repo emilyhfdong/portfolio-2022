@@ -16,6 +16,10 @@ export const Timeline: React.FC<TimelineProps> = ({
   lastUpdatedAt,
   backgroundColor,
 }) => {
+  if (!dateCreated || !lastUpdatedAt) {
+    return null
+  }
+
   const monthsBetween = Math.floor(
     DateTime.fromISO(lastUpdatedAt)
       .diff(DateTime.fromISO(dateCreated))
