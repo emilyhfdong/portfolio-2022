@@ -22,6 +22,11 @@ const NOTION_PROJECT = {
   },
   archived: false,
   properties: {
+    hide: {
+      id: "%3CWht",
+      type: "checkbox",
+      checkbox: false,
+    },
     "github link": {
       id: "%3FKDC",
       type: "url",

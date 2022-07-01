@@ -20,13 +20,22 @@ const getProjects: ValidatedEventAPIGatewayProxyEvent<{}> = async () => {
   const notionProjects = blah.results as NotionProject[]
 
   const projects: Project[] = notionProjects
-    .filter((p) => p.properties["background colour"].rich_text.length)
+    .filter(
+      (p) =>
+        p.properties["background colour"].rich_text.length &&
+        !p.properties.hide.checkbox
+    )
     .map((p) => ({
       id: p.id,
       emoji: p.icon.emoji,
       backgroundColor:
         p.properties["background colour"].rich_text[0].plain_text,
       name: p.properties.name.title[0].plain_text,
+      tech: p.properties.tech.multi_select,
+      url: p.properties.url.url,
+      dateCreated: p.properties.date.date.start,
+      screenshots: p.properties.screenshot.files.map((file) => file.file.url),
+      github: p.properties["github link"].url,
     }))
 
   return formatJSONResponse({
