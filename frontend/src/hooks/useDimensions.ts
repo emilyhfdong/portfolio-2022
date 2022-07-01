@@ -21,6 +21,7 @@ export const useDimensions = (ref: React.RefObject<HTMLElement>) => {
       }
     }
     updateDimensions()
+    setTimeout(() => updateDimensions(), 1000)
 
     window.addEventListener("resize", updateDimensions)
     return () => window.removeEventListener("resize", updateDimensions)

@@ -1,7 +1,8 @@
+import { DateTime } from "luxon"
 import React, { useRef, useState } from "react"
-import { Flex } from "rebass"
+import { Flex, Text } from "rebass"
 import { useDimensions } from "../hooks"
-import { Project } from "../types"
+import { Project } from "../query"
 import { ProjectDetail } from "./ProjectDetail"
 
 type ProjectCardProps = {
@@ -12,16 +13,19 @@ export const PROJECT_CARD_EXPAND_DURATION_S = 0.4
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const ref = useRef<HTMLElement>(null)
+  const [isHovering, setIsHovering] = useState(false)
 
   const [isOpen, setIsOpen] = useState(false)
 
-  const { x, y, width, height } = useDimensions(ref)
+  const { x, y, width } = useDimensions(ref)
 
   return (
     <>
       <Flex
         ref={ref}
         onClick={() => setIsOpen(!isOpen)}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
         sx={{
           height: width,
           width: "100%",
@@ -32,19 +36,50 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           borderRadius: "1rem",
           cursor: "pointer",
           ":hover": {
+            fontSize: 40,
             transform: "scale(1.05)",
           },
-          transition: "transform 0.3s",
+          transition: "transform 0.3s, font-size 0.3s",
+          position: "relative",
         }}
       >
+        <Text
+          sx={{
+            position: "absolute",
+            top: "1rem",
+            left: "1rem",
+            fontSize: 10,
+            color: project.backgroundColor,
+            filter: "brightness(70%)",
+            opacity: isHovering ? 1 : 0,
+            transition: "opacity 0.3s",
+          }}
+        >
+          {project.name.toUpperCase()}
+        </Text>
+        <Text
+          sx={{
+            position: "absolute",
+            bottom: "1rem",
+            right: "1rem",
+            fontSize: 10,
+            color: project.backgroundColor,
+            filter: "brightness(70%)",
+            opacity: isHovering ? 1 : 0,
+            transition: "opacity 0.3s",
+          }}
+        >
+          {DateTime.fromISO(project.dateCreated)
+            .toFormat("MMM yyyy")
+            .toUpperCase()}
+        </Text>
         {project.emoji}
       </Flex>
       <Flex
-        onClick={() => setIsOpen(false)}
         sx={{
           clipPath: isOpen
-            ? `circle(200vh at ${x + width / 2}px ${y + height / 2}px)`
-            : `circle(0px at ${x + width / 2}px ${y + height / 2}px)`,
+            ? `circle(200vh at ${x + width / 2}px ${y + width / 2}px)`
+            : `circle(0px at ${x + width / 2}px ${y + width / 2}px)`,
           position: "fixed",
           width: "100vw",
           height: "100vh",
@@ -52,9 +87,11 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           left: 0,
           top: 0,
           transition: `all ${PROJECT_CARD_EXPAND_DURATION_S}s`,
+          overflow: "scroll",
+          zIndex: 1,
         }}
       >
-        <ProjectDetail project={project} />
+        <ProjectDetail close={() => setIsOpen(false)} project={project} />
       </Flex>
     </>
   )

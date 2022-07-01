@@ -4,10 +4,8 @@ import { ContactDetail, ProjectCard, BreakpointHelper } from "./components"
 import { useProjects } from "./query"
 
 export const App: React.FC = () => {
-  const { data, isLoading } = useProjects()
-  if (isLoading) {
-    return <div></div>
-  }
+  const { data } = useProjects()
+
   return (
     <Flex
       sx={{
