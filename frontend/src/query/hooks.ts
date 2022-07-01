@@ -19,6 +19,16 @@ export const useProjects = () => {
     },
     {
       placeholderData: projectsPlaceholder.projects,
+      onSuccess: (data) => {
+        const screenshots = data.reduce(
+          (acc, curr) => [...acc, ...curr.screenshots],
+          [] as string[]
+        )
+        for (var i = 0; i < screenshots.length; i++) {
+          const img = new Image()
+          img.src = screenshots[i]
+        }
+      },
     }
   )
 }

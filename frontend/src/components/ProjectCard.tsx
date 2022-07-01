@@ -9,7 +9,7 @@ type ProjectCardProps = {
   project: Project
 }
 
-export const PROJECT_CARD_EXPAND_DURATION_S = 0.4
+export const PROJECT_CARD_EXPAND_DURATION_S = 0.5
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const ref = useRef<HTMLElement>(null)
@@ -36,8 +36,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           borderRadius: "1rem",
           cursor: "pointer",
           ":hover": {
-            fontSize: 40,
-            transform: "scale(1.05)",
+            fontSize: [35, 40],
+            transform: ["none", "scale(1.05)"],
           },
           transition: "transform 0.3s, font-size 0.3s",
           position: "relative",
@@ -53,6 +53,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             filter: "brightness(70%)",
             opacity: isHovering ? 1 : 0,
             transition: "opacity 0.3s",
+            display: ["none", "flex"],
           }}
         >
           {project.name.toUpperCase()}
@@ -67,6 +68,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             filter: "brightness(70%)",
             opacity: isHovering ? 1 : 0,
             transition: "opacity 0.3s",
+            display: ["none", "flex"],
           }}
         >
           {DateTime.fromISO(project.dateCreated)
@@ -86,12 +88,14 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           backgroundColor: project.backgroundColor,
           left: 0,
           top: 0,
-          transition: `all ${PROJECT_CARD_EXPAND_DURATION_S}s`,
+          transition: `clip-path ${PROJECT_CARD_EXPAND_DURATION_S}s`,
           overflow: "scroll",
           zIndex: 1,
         }}
       >
-        <ProjectDetail close={() => setIsOpen(false)} project={project} />
+        {isOpen && (
+          <ProjectDetail close={() => setIsOpen(false)} project={project} />
+        )}
       </Flex>
     </>
   )

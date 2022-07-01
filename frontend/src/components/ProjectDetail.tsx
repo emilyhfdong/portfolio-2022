@@ -97,7 +97,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({
                 borderRadius: 10,
                 border: "3px solid black",
                 marginBottom: "1rem",
-                opacity: imageFormat ? 1 : 0,
+                opacity: width ? 1 : 0,
                 transition: "opacity 0.3s",
                 width: imageFormat === "landscape" ? "100%" : "48%",
               }}
