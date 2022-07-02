@@ -1,10 +1,21 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Box, Flex, Text } from "rebass"
-import { ContactDetail, ProjectCard, BreakpointHelper } from "./components"
-import { useProjects } from "./query"
+import { ContactDetail, ProjectCard } from "./components"
+import { ProjectDetail } from "./components/ProjectDetail"
+import { Project, useProjects } from "./query"
+
+const EXPAND_ANIMATION_S = 0.3
 
 export const App: React.FC = () => {
   const { data } = useProjects()
+  const [activeProject, setActiveProject] = useState<
+    (Project & { width: number; y: number; x: number }) | null
+  >(null)
+  const [isOpen, setIsOpen] = useState(false)
+
+  useEffect(() => {
+    setTimeout(() => setIsOpen(Boolean(activeProject)), 50)
+  }, [activeProject])
 
   return (
     <Flex
@@ -12,9 +23,44 @@ export const App: React.FC = () => {
         height: "100vh",
         width: "100vw",
         flexDirection: ["column", "column", "column", "row", "row"],
+        position: "relative",
       }}
     >
-      {process.env.REACT_APP_ENV !== "dev" && <BreakpointHelper />}
+      {activeProject && (
+        <Flex
+          sx={{
+            clipPath: isOpen
+              ? `circle(200vh at ${
+                  activeProject.x + activeProject.width / 2
+                }px ${activeProject.y + activeProject.width / 2}px)`
+              : `circle(0px at ${activeProject.x + activeProject.width / 2}px ${
+                  activeProject.y + activeProject.width / 2
+                }px)`,
+            position: "fixed",
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: activeProject.backgroundColor,
+            left: 0,
+            top: 0,
+            transition: `clip-path ${EXPAND_ANIMATION_S}s`,
+            overflow: "scroll",
+            zIndex: 2,
+          }}
+        >
+          {data && (
+            <ProjectDetail
+              close={() => {
+                setIsOpen(false)
+                setTimeout(
+                  () => setActiveProject(null),
+                  EXPAND_ANIMATION_S * 1000
+                )
+              }}
+              project={activeProject}
+            />
+          )}
+        </Flex>
+      )}
       <Flex
         sx={{
           flex: [0, 0, 0, 1],
@@ -67,7 +113,11 @@ export const App: React.FC = () => {
           }}
         >
           {data?.map((project, idx) => (
-            <ProjectCard key={idx} project={project} />
+            <ProjectCard
+              setActiveProject={setActiveProject}
+              key={idx}
+              project={project}
+            />
           ))}
         </Box>
       </Flex>

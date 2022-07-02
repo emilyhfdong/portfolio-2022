@@ -42,7 +42,12 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({
         flexDirection: "column",
         alignItems: "center",
         width: "100%",
-        position: "relative",
+        position: "fixed",
+        height: "100%",
+        zIndex: 1,
+        overflow: "scroll",
+        top: 0,
+        left: 0,
       }}
     >
       <CloseButton close={close} backgroundColor={backgroundColor} />
@@ -116,14 +121,6 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({
           <TechPills tech={tech} backgroundColor={backgroundColor} />
           <DescriptionText title="What is it?" text={summary} />
           <DescriptionText title="Why?" text={motivation} />
-          {/* <Flex sx={{}}>
-            <DescriptionText
-              title="First commit"
-              text={DateTime.fromISO(dateCreated).toFormat("LLL dd yyyy")}
-              sx={{ marginRight: "2rem" }}
-            />
-            <LastUpdated githubUrl={github} />
-          </Flex> */}
           <Timeline
             lastUpdatedAt={lastUpdatedAt}
             dateCreated={dateCreated}
