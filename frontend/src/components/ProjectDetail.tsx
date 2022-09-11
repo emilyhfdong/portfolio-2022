@@ -121,11 +121,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({
           <TechPills tech={tech} backgroundColor={backgroundColor} />
           <DescriptionText title="What is it?" text={summary} />
           <DescriptionText title="Why?" text={motivation} />
-          <Timeline
-            lastUpdatedAt={lastUpdatedAt}
-            dateCreated={dateCreated}
-            backgroundColor={backgroundColor}
-          />
+          <Timeline lastUpdatedAt={lastUpdatedAt} dateCreated={dateCreated} />
         </Flex>
       </Flex>
     </Flex>
